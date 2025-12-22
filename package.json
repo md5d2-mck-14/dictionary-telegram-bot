@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mongodb": "^7.0.0",
+    "telegraf": "^4.16.3",
+    "xlsx": "^0.18.5"
+  },
+  "scripts": {
+    "start": "node bot.js"
+  }
+}
