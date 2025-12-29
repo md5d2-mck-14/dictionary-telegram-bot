@@ -1,3 +1,5 @@
+console.log("MONGO_URI:", process.env.MONGO_URI);
+
 const { Telegraf } = require("telegraf");
 const { MongoClient } = require("mongodb");
 
