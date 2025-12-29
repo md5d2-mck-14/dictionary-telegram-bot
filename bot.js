@@ -1,12 +1,13 @@
 const { Telegraf } = require("telegraf");
-const bot = new Telegraf("8107838948:AAHOeoU6UMUuVtSgINbpQVHKrfo3uLoMsQU");
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start( (ctx) => {
     ctx.reply("Hello! Banjix Dictionary is alive");
 });
 
 bot.on("text", (ctx) => {
-    ctx.reply("I received: " + ctx.message.text);
+    const input = ctx.message.text.toLowerCase().trim();
+    console.log("User searched: ", input);
 })
 
 bot.launch();
