@@ -17,8 +17,8 @@ bot.on("text", (ctx) => {
 })
 
 async function connectDB () {
-    await MongoClient.connect();
-    const db = MongoClient.db("dictionaryBot");
+    await mongoClient.connect();
+    const db = mongoClient.db("dictionaryBot");
     wordsCollection = db.collection("vocabulary");
     console.log("MongoDB connected");
 }
