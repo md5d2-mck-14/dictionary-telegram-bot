@@ -1,10 +1,8 @@
-console.log("MONGO_URI:", process.env.MONGO_URI);
-
 const { Telegraf } = require("telegraf");
 const { MongoClient } = require("mongodb");
 
-const mongoClient = new MongoClient(process.env.MONGO_URI);//we use process.env.MONGOURI for Railway
 let wordsCollection;
+
 const bot = new Telegraf(process.env.BOT_TOKEN);//we use process.env.BOT_TOKEN for Railway
 
 bot.start( (ctx) => {
@@ -17,12 +15,22 @@ bot.on("text", (ctx) => {
 })
 
 async function connectDB () {
-    await mongoClient.connect();
-    const db = mongoClient.db("dictionaryBot");
+    const uri = process.env.MONGO_URI;//we use process.env.MONGOURI for Railway
+
+    console.log("Using Mongo URI:", uri); // temporary debug
+
+    const client = new MongoClient(uri);
+    await client.connect();
+
+    const db = client.db("dictionaryBot");
     wordsCollection = db.collection("vocabulary");
+    
     console.log("MongoDB connected");
 }
-connectDB();
-bot.launch();
 
-console.log("Bot started");
+async function startBot () {
+    await connectDB();//connect mongodb first
+    await bot.launch();//then start telegram bot
+    console.log("Bot started");
+}
+startBot();
